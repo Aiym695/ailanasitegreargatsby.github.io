@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Characters</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <header>
@@ -14,20 +16,53 @@
     <a href="author.html">About the Author</a>
     <a href="summary.html">Summary</a>
     <a href="theme.html">Theme Analysis</a>
-    <a href="characters.html">Characters</a>
+    <a href="characters.html" class="active">Characters</a>
     <a href="quotes.html">Quotes</a>
     <a href="conclusion.html">Conclusion</a>
 </nav>
-<main>
-    <ul>
-        <li><strong>Jay Gatsby</strong> – Dreamer chasing an illusion.</li>
-        <li><strong>Daisy Buchanan</strong> – Gatsby’s love interest, symbol of wealth and beauty.</li>
-        <li><strong>Nick Carraway</strong> – The story's narrator.</li>
-        <li><strong>Tom Buchanan</strong> – Daisy’s wealthy but arrogant husband.</li>
-    </ul>
+   <main>
+  <h2>Click a character to learn more:</h2>
+  <div class="characters-grid">
+
+    <div class="character-card">
+      <img src="gatsby.jpg" alt="Jay Gatsby">
+      <div class="info">
+        <h3>Jay Gatsby</h3>
+        <p>A mysterious millionaire who throws extravagant parties to win back Daisy Buchanan. Represents the American Dream and the illusions behind it.</p>
+      </div>
+    </div>
+
+    <div class="character-card">
+      <img src="daisy.jpg" alt="Daisy Buchanan">
+      <div class="info">
+        <h3>Daisy Buchanan</h3>
+        <p>Beautiful and shallow. Torn between Gatsby and Tom. Symbolizes unattainable dreams and moral decay.</p>
+      </div>
+    </div>
+
+    <div class="character-card">
+      <img src="nick.jpg" alt="Nick Carraway">
+      <div class="info">
+        <h3>Nick Carraway</h3>
+        <p>Narrator of the story. An honest observer from the Midwest, caught between illusion and reality.</p>
+      </div>
+    </div>
+
+    <div class="character-card">
+      <img src="tom.jpg" alt="Tom Buchanan">
+      <div class="info">
+        <h3>Tom Buchanan</h3>
+        <p>Rich, arrogant and aggressive. Represents the corruption and entitlement of old money.</p>
+      </div>
+    </div>
+
+  </div>
 </main>
+<a href="#" class="back-to-top">↑ Top</a>
 <footer>
     © 2025 Study Project on The Great Gatsby
 </footer>
+<audio id="click-sound" src="typewriter.mp3" preload="auto"></audio>
+<script src="sound.js"></script>
 </body>
 </html>
