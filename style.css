@@ -331,37 +331,3 @@ footer {
   width: 100%;
   height: auto;   
 }
-@media (max-width: 768px) {
-  nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  nav a {
-    margin: 10px 0;
-    display: block;
-  }
-
-  .content-block {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .content-block img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  main {
-    padding: 15px;
-  }
-}
-body {
-  font-size: 1rem; /* вместо фиксированных px */
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
