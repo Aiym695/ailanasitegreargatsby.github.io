@@ -294,16 +294,16 @@ footer {
 }
 
 .quote-n {
-  border-color: #4682B4; /* синий */
+  border-color: #6e7f80; /* синий */
 }
 .quote-g {
-  border-color: #32CD32; /* зелёный */
+  border-color: #87a96b; /* зелёный */
 }
 .quote-d {
-  border-color: #FF69B4; /* розовый */
+  border-color: #f4c2c2; /* розовый */
 }
 .quote-t {
-  border-color: #B22222; /* бордовый */
+  border-color: #78866b; /* бордовый */
 }
 .analysis-section {
   background-color: #fffaf0;
