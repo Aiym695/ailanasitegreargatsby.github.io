@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game: Quote or Not?</title>
+  <link rel="stylesheet" href="style.css">
+   <style>
+    body {
+      background: #f5f5dc;
+    }
+    #game-container {
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 30px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .game-quote {
+      font-size: 1.3rem;
+      font-style: italic;
+      line-height: 1.4;
+      margin-bottom: 24px;
+      color: #333;
+      text-align: center;
+    }
+    .buttons-center {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .btn {
+      min-width: 100px;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: transform 0.1s ease;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .game-feedback {
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      height: 1.4em;
+      margin-bottom: 12px;
+    }
+    .game-feedback.correct {
+      color: #28a745;
+    }
+    .game-feedback.incorrect {
+      color: #dc3545;
+    }
+    .game-hint {
+      text-align: center;
+      font-size: 0.95rem;
+      color: #555;
+      font-style: italic;
+      min-height: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>The Great Gatsby</h1>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="author.html">About the Author</a>
+    <a href="summary.html">Summary</a>
+    <a href="theme.html">Theme Analysis</a>
+    <a href="characters.html">Characters</a>
+    <a href="quotes.html">Quotes</a>
+    <a href="gatsby-quote-game.html"class="active">Quote-game</a>
+    <a href="conclusion.html">Conclusion</a>
+  </nav>
+
+  <main>
+<section>
+      <h2 style="text-align:center; margin-top: 30px;">Game: Quote or Not?</h2>
+      <div id="game-container">
+        <div id="quote" class="game-quote">Loading quote...</div>
+        <div class="buttons-center">
+          <button id="yes-btn" class="btn btn-primary">From Novel</button>
+          <button id="no-btn" class="btn btn-primary">Fictional</button>
+          <button id="hint-btn" class="btn btn-secondary">Hint</button>
+          <button id="next-btn" class="btn btn-secondary">Next</button>
+        </div>
+        <div id="feedback" class="game-feedback"></div>
+        <div id="hint-text" class="game-hint"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+ &copy; 2025 Study Project on The Great Gatsby
+  </footer>
+
+  <script src="sound.js"></script>
+  <script>
+    const quotes = [
+      { text: 'I always thought I would live forever, but it turned out...', real: false, hint: '— fabricated' },
+      { text: 'I heard Tom Buchanan bought a house on the seashore.', real: false, hint: '— fabricated' },
+      { text: 'My family was wealthy, but it all dwindled by the time I arrived here.', real: false, hint: '— fabricated' },
+      { text: 'He ran up and down the Terrace, glaring down at the water.', real: true, hint: 'Chapter 1' },
+      { text: 'Then I saw him lift his hand to the wire and shoot a porcelain dove.', real: false, hint: '— fabricated' },
+      { text: 'She was more beautiful than anyone I had ever seen.', real: false, hint: '— fabricated' },
+      { text: 'He stood in his pajamas on the balcony, looking at the lights of New York City.', real: false, hint: '— fabricated' },
+      { text: 'Her hand was white and delicate as a child’s.', real: false, hint: '— fabricated' },
+      { text: 'I spoke to Jay Gatsby only once in two months, but it was a conversation about eternity.', real: false, hint: '— fabricated' },
+      { text: 'They came, all in white, and their laughter came over the dark.', real: true, hint: 'Chapter 3' }
+    ];
+
+    let current;
+
+    function pickQuote() {
+      current = quotes[Math.floor(Math.random() * quotes.length)];
+      document.getElementById('quote').textContent = '“' + current.text + '”';
+      document.getElementById('feedback').textContent = '';
+      document.getElementById('hint-text').textContent = '';
+    }
+
+    document.getElementById('yes-btn').addEventListener('click', () => showFeedback(current.real));
+    document.getElementById('no-btn').addEventListener('click', () => showFeedback(!current.real));
+    document.getElementById('hint-btn').addEventListener('click', () => {
+      document.getElementById('hint-text').textContent = current.hint;
+    });
+    document.getElementById('next-btn').addEventListener('click', pickQuote);
+
+    function showFeedback(isCorrect) {
+      const fb = document.getElementById('feedback');
+      fb.textContent = isCorrect ? 'Correct!' : 'Incorrect!';
+      fb.classList.toggle('correct', isCorrect);
+      fb.classList.toggle('incorrect', !isCorrect);
+    }
+
+    pickQuote();
+  </script>
+</body>
+</html>
