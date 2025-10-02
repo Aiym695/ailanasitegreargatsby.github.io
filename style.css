@@ -331,3 +331,133 @@ footer {
   width: 100%;
   height: auto;   
 }
+/* 🎮 Блок игры "What happens next?" */
+#what-next-game {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 25px;
+  background-color: #fffaf0;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+#what-next-game h2 {
+  text-align: center;
+  color: #403F6F;
+  margin-top: 0;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #ffa700;
+  padding-bottom: 8px;
+}
+
+#what-next-game p {
+   max-width: 700px;
+  margin: 50px auto;              /* больше отступ сверху */
+  padding: 25px;
+  background-color: #fffaf0;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12); 
+}
+
+#wn-excerpt {
+   max-width: 600px;      
+  margin: 20px auto 20px;    
+  padding: 15px;
+  border-radius: 8px;
+  border: 2px solid #ffa700;
+  background: #fffdf5;
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  text-align: center;
+}
+#wn-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: stretch;     /* кнопки займут всю ширину островка */
+  max-width: 500px;         /* ширина островка */
+  margin: 0 auto 20px;      /* центрируем */
+  padding: 20px;
+  background: #fffaf0;      /* светлый фон островка */
+  border: 2px solid #ffa700;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Кнопки */
+#wn-choices button {
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 2px solid #ccc;
+  background: white;
+  cursor: pointer;
+  text-align: left;
+  word-wrap: break-word;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  font-family: 'Georgia', serif;
+  font-size: 1rem;
+}
+
+#wn-choices button:hover {
+  background-color: #f5f5dc;
+  transform: translateY(-2px);
+}
+
+#wn-feedback {
+  font-weight: bold;
+  margin-left: auto;
+}
+
+#wn-feedback:empty {
+  display: none;
+}
+
+#wn-next, #wn-restart {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#wn-next {
+  background-color: #403F6F;
+  color: #ffa700;
+  border: none;
+}
+
+#wn-next:hover {
+  background-color: #2c344e;
+}
+
+#wn-restart {
+  background-color: white;
+  border: 2px solid #403F6F;
+  color: #403F6F;
+}
+
+#wn-restart:hover {
+  background-color: #f5f5dc;
+}
+
+#what-next-game details {
+  margin-top: 15px;
+  font-size: 0.95rem;
+  color: #403F6F;
+}
+
+#what-next-game summary {
+  cursor: pointer;
+  font-weight: bold;
+  color: #403F6F;
+}
+#what-next-game .game-footer {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 2px solid #eee;
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+}

@@ -1,146 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Game: Quote or Not?</title>
-  <link rel="stylesheet" href="style.css">
-   <style>
-    body {
-      background: #f5f5dc;
-    }
-    #game-container {
-      max-width: 500px;
-      margin: 40px auto;
-      padding: 30px;
-      background: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .game-quote {
-      font-size: 1.3rem;
-      font-style: italic;
-      line-height: 1.4;
-      margin-bottom: 24px;
-      color: #333;
-      text-align: center;
-    }
-    .buttons-center {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-    .btn {
-      min-width: 100px;
-      padding: 10px 16px;
-      border-radius: 6px;
-      font-weight: 600;
-      transition: transform 0.1s ease;
-    }
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
-    .game-feedback {
-      text-align: center;
-      font-size: 1.1rem;
-      font-weight: 700;
-      height: 1.4em;
-      margin-bottom: 12px;
-    }
-    .game-feedback.correct {
-      color: #28a745;
-    }
-    .game-feedback.incorrect {
-      color: #dc3545;
-    }
-    .game-hint {
-      text-align: center;
-      font-size: 0.95rem;
-      color: #555;
-      font-style: italic;
-      min-height: 1.2em;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>What happens next?</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
-  <header>
-    <h1>The Great Gatsby</h1>
-  </header>
-
-  <nav>
+<header>
+    <h1>What happens next?</h1>
+</header>
+<nav>
     <a href="index.html">Home</a>
     <a href="author.html">About the Author</a>
     <a href="summary.html">Summary</a>
     <a href="theme.html">Theme Analysis</a>
     <a href="characters.html">Characters</a>
     <a href="quotes.html">Quotes</a>
-    <a href="gatsby-quote-game.html"class="active">Quote-game</a>
+    <a href="gatsby-quote-game.html"class="active">What happens next?</a>
     <a href="conclusion.html">Conclusion</a>
-  </nav>
+</nav>
+  <section id="wn-game">
+  <div id="wn-excerpt" aria-live="polite">Loading excerpt...</div>
 
-  <main>
-<section>
-      <h2 style="text-align:center; margin-top: 30px;">Game: Quote or Not?</h2>
-      <div id="game-container">
-        <div id="quote" class="game-quote">Loading quote...</div>
-        <div class="buttons-center">
-          <button id="yes-btn" class="btn btn-primary">From Novel</button>
-          <button id="no-btn" class="btn btn-primary">Fictional</button>
-          <button id="hint-btn" class="btn btn-secondary">Hint</button>
-          <button id="next-btn" class="btn btn-secondary">Next</button>
-        </div>
-        <div id="feedback" class="game-feedback"></div>
-        <div id="hint-text" class="game-hint"></div>
-      </div>
-    </section>
-  </main>
+  <div id="wn-choices"></div>
 
-  <footer>
- &copy; 2025 Study Project on The Great Gatsby
-  </footer>
+  <div class="buttons-center">
+    <button id="wn-next">Next</button>
+    <button id="wn-restart">Restart</button>
+    <div id="wn-feedback"></div>
+  </div>
+<div class="game-footer">
+  <div class="game-info">
+    <div>Score: <span id="wn-score">0</span></div>
+    <div>Round: <span id="wn-round">0</span>/<span id="wn-total">0</span></div>
+  </div>
 
-  <script src="sound.js"></script>
-  <script>
-    const quotes = [
-      { text: 'I always thought I would live forever, but it turned out...', real: false, hint: '— fabricated' },
-      { text: 'I heard Tom Buchanan bought a house on the seashore.', real: false, hint: '— fabricated' },
-      { text: 'My family was wealthy, but it all dwindled by the time I arrived here.', real: false, hint: '— fabricated' },
-      { text: 'He ran up and down the Terrace, glaring down at the water.', real: true, hint: 'Chapter 1' },
-      { text: 'Then I saw him lift his hand to the wire and shoot a porcelain dove.', real: false, hint: '— fabricated' },
-      { text: 'She was more beautiful than anyone I had ever seen.', real: false, hint: '— fabricated' },
-      { text: 'He stood in his pajamas on the balcony, looking at the lights of New York City.', real: false, hint: '— fabricated' },
-      { text: 'Her hand was white and delicate as a child’s.', real: false, hint: '— fabricated' },
-      { text: 'I spoke to Jay Gatsby only once in two months, but it was a conversation about eternity.', real: false, hint: '— fabricated' },
-      { text: 'They came, all in white, and their laughter came over the dark.', real: true, hint: 'Chapter 3' }
-    ];
+  <details>
+    <summary>Настройки игры</summary>
+    <div>
+      <label><input type="checkbox" id="wn-shuffle" checked> Перемешивать варианты</label><br>
+      <label><input type="checkbox" id="wn-random-scenes" checked> Случайный порядок сцен</label>
+    </div>
+  </details>
+</div>
+</section>
 
-    let current;
-
-    function pickQuote() {
-      current = quotes[Math.floor(Math.random() * quotes.length)];
-      document.getElementById('quote').textContent = '“' + current.text + '”';
-      document.getElementById('feedback').textContent = '';
-      document.getElementById('hint-text').textContent = '';
+<script>
+(function(){
+  const scenes = [
+    {
+      excerpt: 'Nick sees Gatsby reaching toward the green light across the bay; Gatsby watches the water and seems full of longing.',
+      choices: [
+        'Gatsby and Daisy meet privately and discuss their past. (Correct)',
+        'Gatsby decides to sell his mansion and leave town.',
+        'Tom publicly accuses Gatsby of criminal activity.',
+        'Gatsby burns all his letters and retreats from society.'
+      ],
+      correct: 0
+    },
+    {
+      excerpt: 'Tom and Daisy host a loud, careless party; guests gossip and drink while tensions simmer.',
+      choices: [
+        'A confrontation later happens between Tom and Gatsby in a hotel suite. (Correct)',
+        'Nick runs for public office and leaves Long Island.',
+        'Myrtle becomes the mayor of the next town.',
+        'Gatsby reveals a new invention to the guests.'
+      ],
+      correct: 0
+    },
+    {
+      excerpt: 'Myrtle runs into the street after being hurt during an argument; a car is involved nearby.',
+      choices: [
+        'A tragic accident occurs and a character is fatally struck. (Correct)',
+        'Myrtle escapes to Europe the next day.',
+        'The car drives off and no one notices anything happened.',
+        'Daisy confesses her love for Myrtle.'
+      ],
+      correct: 0
+    },
+    {
+      excerpt: 'Nick is invited to Gatsby’s party and watches guests who don’t really know their host.',
+      choices: [
+        'Nick later becomes closer to Gatsby and learns his true background. (Correct)',
+        'Nick decides to write a bestselling novel immediately.',
+        'Gatsby’s house is demolished the next morning.',
+        'Nick never speaks to Gatsby again after that night.'
+      ],
+      correct: 0
+    },
+    {
+      excerpt: 'George Wilson is distraught after Myrtle’s death and grows increasingly unstable.',
+      choices: [
+        'George eventually finds Gatsby and a tragic confrontation occurs. (Correct)',
+        'George leaves New York to start a new life.',
+        'Tom helps George open a new car repair shop.',
+        'Nick adopts George as a business partner.'
+      ],
+      correct: 0
+    },
+    {
+      excerpt: 'After Gatsby’s death, Daisy makes a decision about her future with Tom.',
+      choices: [
+        'Daisy quietly leaves town with Tom, avoiding responsibility. (Correct)',
+        'Daisy confesses publicly and faces the consequences.',
+        'Daisy takes over Gatsby’s mansion and throws more parties.',
+        'Daisy dedicates herself to caring for Nick.'
+      ],
+      correct: 0
+    },
+    {
+      excerpt: 'Nick reflects on his experiences in New York and the lives of the people he met.',
+      choices: [
+        'Nick decides to return to the Midwest, disillusioned. (Correct)',
+        'Nick becomes the new owner of Gatsby’s house.',
+        'Nick runs for mayor of New York.',
+        'Nick stays in the city and throws even bigger parties.'
+      ],
+      correct: 0
     }
+  ];
 
-    document.getElementById('yes-btn').addEventListener('click', () => showFeedback(current.real));
-    document.getElementById('no-btn').addEventListener('click', () => showFeedback(!current.real));
-    document.getElementById('hint-btn').addEventListener('click', () => {
-      document.getElementById('hint-text').textContent = current.hint;
+  let pool = scenes.slice();
+  let current = null;
+  let score = 0;
+  let round = 0;
+
+  const excerptEl = document.getElementById('wn-excerpt');
+  const choicesEl = document.getElementById('wn-choices');
+  const nextBtn = document.getElementById('wn-next');
+  const restartBtn = document.getElementById('wn-restart');
+  const feedbackEl = document.getElementById('wn-feedback');
+  const scoreEl = document.getElementById('wn-score');
+  const roundEl = document.getElementById('wn-round');
+  const totalEl = document.getElementById('wn-total');
+  const shuffleChoicesCheckbox = document.getElementById('wn-shuffle');
+  const randomScenesCheckbox = document.getElementById('wn-random-scenes');
+
+  function shuffle(a){
+    for(let i=a.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];
+    }
+  }
+
+  function newRound(){
+    if(pool.length===0){
+      pool = scenes.slice();
+      if(randomScenesCheckbox.checked) shuffle(pool);
+    }
+    current = pool.shift();
+    round++;
+    roundEl.textContent = round;
+    totalEl.textContent = scenes.length;
+    excerptEl.textContent = current.excerpt;
+
+    const choices = current.choices.map((c,i)=>({text:c,index:i}));
+    if(shuffleChoicesCheckbox.checked) shuffle(choices);
+
+    choicesEl.innerHTML = '';
+    choices.forEach((cObj)=>{
+      const btn = document.createElement('button');
+      btn.className = 'wn-choice';
+      btn.type = 'button';
+      btn.textContent = cObj.text.replace(' (Correct)','');
+      btn.dataset.choiceIndex = cObj.index;
+      btn.addEventListener('click', ()=> selectChoice(btn, cObj.index));
+      choicesEl.appendChild(btn);
     });
-    document.getElementById('next-btn').addEventListener('click', pickQuote);
 
-    function showFeedback(isCorrect) {
-      const fb = document.getElementById('feedback');
-      fb.textContent = isCorrect ? 'Correct!' : 'Incorrect!';
-      fb.classList.toggle('correct', isCorrect);
-      fb.classList.toggle('incorrect', !isCorrect);
+    feedbackEl.textContent='';
+  }
+
+  function selectChoice(button, choiceIndex){
+    const btns = choicesEl.querySelectorAll('button');
+    btns.forEach(b=>b.disabled=true);
+
+    const isCorrect = choiceIndex==current.correct;
+    if(isCorrect){
+      feedbackEl.textContent='Correct!';
+      score++;
+      scoreEl.textContent = score;
+      button.style.background='#e6ffef';
+      button.style.borderColor='#8fd19e';
+    } else {
+      feedbackEl.textContent='Not quite — the correct answer is highlighted.';
+      btns.forEach(b=>{
+        if(Number(b.dataset.choiceIndex)===current.correct){
+          b.style.background='#e6ffef';
+          b.style.borderColor='#8fd19e';
+        }
+      });
+      button.style.background='#ffecec';
+      button.style.borderColor='#e09b9b';
     }
+  }
 
-    pickQuote();
-  </script>
-</body>
-</html>
+  nextBtn.addEventListener('click', ()=> newRound());
+  restartBtn.addEventListener('click', ()=>{
+    pool = scenes.slice();
+    score = 0; round = 0;
+    scoreEl.textContent = score;
+    roundEl.textContent = round;
+    if(randomScenesCheckbox.checked) shuffle(pool);
+    newRound();
+  });
+
+  totalEl.textContent = scenes.length;
+  scoreEl.textContent = score;
+  if(randomScenesCheckbox.checked) shuffle(pool);
+  newRound();
+})();
+</script>
